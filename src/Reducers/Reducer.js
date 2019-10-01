@@ -1,12 +1,12 @@
+import {roomsAPI} from "../api";
 
 const ROOMS_IS_LOADING = 'ROOMS_IS_LOADING';
 const SET_ROOMS = 'SET_NOTES';
-const GET_SLUG = 'GET_SLUG';
+
 
 let initialState = {
     rooms: [],
     isLoading: false,
-    slug: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,32 +19,25 @@ const reducer = (state = initialState, action) => {
                 rooms: action.rooms
             }
         }
-        case GET_SLUG: {
-            return {...state, slug: action.slug}
-        }
+
         default:
             return state;
     }
 }
 
-// export const getNotesToNC = () => {
-//     return async (dispatch) => {
-//         dispatch(noteIsDisplaying(false));
-//         let data = await notesAPI.getNotes()
-//        dispatch(setNotes(data));
-//         dispatch(noteIsDisplaying(true));
-//     }
-// }
-//
-// export const deleteNoteFromNC = (notes) => {
-//     return (dispatch) => {
-//          notesAPI.deleteNote(notes)
-//         dispatch(removeNote(notes));
-//     }
-// }
+export const getRoomsToRC = () => {
+    return async (dispatch) => {
+        dispatch(roomIsLoading(true));
+        let data = await roomsAPI.getRooms()
+       dispatch(setRooms(data));
+        dispatch(roomIsLoading(false));
+    }
+}
+
+
 
 export const roomIsLoading = (isLoading) => ({type: ROOMS_IS_LOADING, isLoading})
 export const setRooms = (rooms) => ({type: SET_ROOMS, rooms })
-export const getSlug = (slug) => ({type: GET_SLUG, slug})
+
 
 export default reducer;
