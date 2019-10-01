@@ -1,8 +1,8 @@
 import React from 'react'
-import logo from '/Images/logo.jpg'
+import logo from '../../Images/logo.jpg'
 import {FiAlignRight} from 'react-icons/fi'
 import {NavLink} from "react-router-dom";
-import "../App.css";
+import "../../App.css"
 
 export class Navbar extends React.Component {
 

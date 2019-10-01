@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import defaultImg from '/src/Images/defaultBcg.jpeg'
+import defaultImg from '../../Images/defaultBcg.jpeg'
 
 const StyledBackground = styled.header`
  min-height: 60vh;

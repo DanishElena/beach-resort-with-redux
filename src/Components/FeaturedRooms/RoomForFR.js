@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import defaultImg from '/src/Images/defaultBcg.jpeg'
+import defaultImg from '../../Images/defaultBcg.jpeg'
 import PropTypes from 'prop-types';
 
 

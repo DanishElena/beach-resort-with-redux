@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultImg from '/src/Images/defaultBcg.jpeg'
+import defaultImg from '../../Images/defaultBcg.jpeg'
 import {NavLink} from "react-router-dom";
 import {Banner} from "../Banner/Banner";
 import StyledBackground from "../Background/StyledBackground";
