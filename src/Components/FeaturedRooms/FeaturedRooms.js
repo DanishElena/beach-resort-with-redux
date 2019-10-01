@@ -16,9 +16,7 @@ let mapStateToProps = (state) => {
 }
 
 class FeaturedRooms extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+
     componentDidMount() {
         this.props.getRoomsToRC()
     }
@@ -27,6 +25,8 @@ class FeaturedRooms extends React.Component {
        let rooms = this.props.rooms.map(room => {
             return <RoomForFR key={room.id} room={room}/>
         })
+   //   if(this.props.rooms.rooms)
+        console.log(this.props.rooms)
         return (
             <section className="featured-rooms">
                 <Title title="featured rooms"/>
