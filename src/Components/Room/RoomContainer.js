@@ -2,8 +2,6 @@ import React from 'react'
 import {RoomFilter} from "./RoomFilter";
 import {RoomList} from "./RoomList";
 import {Loading} from "../Loading/Loading";
-import {RoomForFR} from "../FeaturedRooms/RoomForFR";
-import {Title} from "../Title/Title";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {getRoomsToRC} from "../../Reducers/FeaturedRoomsReducer";
@@ -52,16 +50,12 @@ class RoomContainer extends React.Component {
     }
 
     render() {
-        let rooms = this.props.rooms.map(room => {
-            return <RoomList key={room.id} room={room}/>
-
-        })
 
         return (
             <>
-                <RoomFilter context={this.props.rooms}/>
+                <RoomFilter rooms={this.props.rooms}/>
                 <div>
-                    {this.props.isLoading ? <Loading/> : rooms}
+                    {this.props.isLoading ? <Loading/> : <RoomList rooms={this.props.rooms}/>}
                 </div>
             </>
         )

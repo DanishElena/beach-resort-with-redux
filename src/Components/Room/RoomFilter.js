@@ -6,25 +6,9 @@ const getUnique = (items, value) => {
     return [...new Set(items.map(item => item[value]))]
 }
 
-export const RoomFilter = ({context}) => {
+export const RoomFilter = (props) => {
 
-
-    const {
-        rooms,
-        handleChange,
-        type,
-        capacity,
-        price,
-        minPrice,
-        maxPrice,
-        minSize,
-        maxSize,
-        breakfast,
-        pets
-    } = context;
-
-
-    let types = getUnique(rooms, 'type')
+    let types = getUnique(props.rooms, 'type')
 
 
     types = ['all', ...types];
@@ -32,12 +16,15 @@ export const RoomFilter = ({context}) => {
             return <option value={item} key={index}>{item}</option>
         }
     )
-    let people =  getUnique(rooms, 'capacity')
+    let people =  getUnique(props.rooms, 'capacity')
     people =  people.map((item, index) => {
         return <option key={index} value={item}>{item}</option>
     })
 
-
+    let maxPrice = Math.max(props.rooms.map(item => item.price))
+    let maxSize = Math.max(props.rooms.map(item => item.size))
+    let minPrice = 0;
+    let minSize = 0;
 
     return (
         <section className="filter-container">
@@ -47,9 +34,10 @@ export const RoomFilter = ({context}) => {
                 <div className="form-group">
                     <label htmlFor="type">room type</label>
                     <select name="type" id="type"
-                            value={type}
+                            value={props.rooms.type}
                             className="form-control"
-                            onChange={handleChange}>
+                            // onChange={handleChange}
+                        >
                         {types}
                     </select>
                 </div>
@@ -57,22 +45,22 @@ export const RoomFilter = ({context}) => {
                 <div className="form-group">
                     <label htmlFor="capacity">Guests</label>
                     <select name="capacity" id="capacity"
-                            value={capacity}
+                            value={props.rooms.capacity}
                             className="form-control"
-                            onChange={handleChange}>
+                            onChange={props.rooms.handleChange}>
                         {people}
                     </select>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="price">room price ${price}</label>
+                    <label htmlFor="price">room price ${props.rooms.price}</label>
                     <input type="range"
                            name="price"
                            min = {minPrice}
                            max={maxPrice}
                            id="price"
-                           value={price}
-                           onChange={handleChange}
+                           value={props.rooms.price}
+                         //  onChange={handleChange}
                            className="form-control"/>
                 </div>
 
@@ -83,13 +71,13 @@ export const RoomFilter = ({context}) => {
                                name="minSize"
                                id="size"
                                value={minSize}
-                               onChange={handleChange}
+                             //  onChange={handleChange}
                                className="size-input"/>
                         <input type="number"
                                name="maxSize"
                                id="size1"
                                value={maxSize}
-                               onChange={handleChange}
+                            //  onChange={handleChange}
                                className="size-input"/>
                     </div>
                 </div>
@@ -98,8 +86,9 @@ export const RoomFilter = ({context}) => {
                         <input type="checkbox"
                                name="breakfast"
                                id="breakfast"
-                               checked={breakfast}
-                               onChange={handleChange}/>
+                               checked={props.rooms.breakfast}
+                             //  onChange={handleChange}
+                            />
                         <label htmlFor="breakfast">breakfast</label>
                     </div>
                 </div>
@@ -108,8 +97,9 @@ export const RoomFilter = ({context}) => {
                         <input type="checkbox"
                                name="pets"
                                id="pets"
-                               checked={pets}
-                               onChange={handleChange}/>
+                               checked={props.rooms.pets}
+                        //       onChange={handleChange}
+                        />
                         <label htmlFor="pets">pets</label>
                     </div>
                 </div>
