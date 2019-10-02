@@ -6,12 +6,12 @@ import {RoomForFR} from "../FeaturedRooms/RoomForFR";
 import {Title} from "../Title/Title";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {getRoomsToRC} from "../../Reducers/Reducer";
+import {getRoomsToRC} from "../../Reducers/FeaturedRoomsReducer";
 
 // let mapStateToProps = (state) => {
 //     return {
-//         rooms: state.reducer.rooms,
-//         isLoading: state.reducer.isLoading
+//         rooms: state.featuredRoomsReducer.rooms,
+//         isLoading: state.featuredRoomsReducer.isLoading
 //     }
 // }
 //
@@ -40,27 +40,33 @@ import {getRoomsToRC} from "../../Reducers/Reducer";
 
 let mapStateToProps = (state) => {
     return {
-        rooms: state.reducer.rooms,
-        isLoading: state.reducer.isLoading
+        rooms: state.featuredRoomsRed.rooms,
+        isLoading: state.featuredRoomsRed.isLoading
     }
 }
 
-const RoomContainer = (props) => {
-//    console.log(props)
+class RoomContainer extends React.Component {
 
-
-    if (props.isLoading) {
-        return <Loading/>
+    componentDidMount() {
+        this.props.getRoomsToRC()
     }
-    return (
-        <>
-            <RoomFilter context={props.rooms}/>
-            <RoomList rooms={props.rooms}/>
-        </>
-    )
+
+    render() {
+        let rooms = this.props.rooms.map(room => {
+            return <RoomList key={room.id} room={room}/>
+
+        })
+
+        return (
+            <>
+                <RoomFilter context={this.props.rooms}/>
+                <div>
+                    {this.props.isLoading ? <Loading/> : rooms}
+                </div>
+            </>
+        )
+
+    }
 }
 
-
-
-export default compose(connect(mapStateToProps, {getRoomsToRC}))
-(RoomContainer);
+export default compose(connect(mapStateToProps, {getRoomsToRC}))(RoomContainer);

@@ -1,12 +1,14 @@
 import {reducer as formReducer} from "redux-form";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunkMiddleware from "redux-thunk";
-import reducer from "./Reducer";
+import featuredRoomsReducer from "./FeaturedRoomsReducer";
+import singleRoomsReducer from "./SingleRoomsReducer";
 
 
 
 let reducers = combineReducers({
-    roomsRed: reducer,
+    featuredRoomsRed: featuredRoomsReducer,
+    singleRoomsRed: singleRoomsReducer,
     form: formReducer
 });
 

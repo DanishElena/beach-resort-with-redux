@@ -5,13 +5,15 @@ const SET_ROOMS = 'SET_NOTES';
 const SET_FEATURED_ROOMS = "SET_FEATURED_ROOMS"
 
 
+
 let initialState = {
     rooms: [],
     isLoading: false,
-    featured: ""
+    featured: "",
+
 };
 
-const reducer = (state = initialState, action) => {
+const featuredRoomsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ROOMS_IS_LOADING: {
             return {...state, isLoading: action.isLoading}
@@ -32,7 +34,7 @@ const reducer = (state = initialState, action) => {
     }
 }
 
-export const getRoomsToRC = () => {
+export const getFeaturedRooms = () => {
     return async (dispatch) => {
         dispatch(roomIsLoading(true));
         let data = await roomsAPI.getRooms()
@@ -42,12 +44,18 @@ export const getRoomsToRC = () => {
     }
 }
 
-
-
-
+export const getRoomsToRC = () => {
+    return async (dispatch) => {
+        dispatch(roomIsLoading(true));
+        let data = await roomsAPI.getRooms()
+        dispatch(setRooms(data));
+         dispatch(roomIsLoading(false));
+    }
+}
 
 export const roomIsLoading = (isLoading) => ({type: ROOMS_IS_LOADING, isLoading})
 export const setRooms = (rooms) => ({type: SET_ROOMS, rooms })
 export const setFeaturedRooms = (rooms) => ({type: SET_FEATURED_ROOMS, rooms })
 
-export default reducer;
+
+export default featuredRoomsReducer;

@@ -15,5 +15,13 @@ export const roomsAPI = {
                 }
             )
     },
+
+    getSingleRoom(slug) {
+        return instance.get(`rooms?slug=${slug}`)
+            .then(response => {
+                    return response.data
+                }
+            )
+    }
 }
 

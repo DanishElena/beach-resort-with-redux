@@ -4,29 +4,29 @@ import {Loading} from "../Loading/Loading";
 import {RoomForFR} from "./RoomForFR";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {getRoomsToRC} from "../../Reducers/Reducer";
+import {getFeaturedRooms} from "../../Reducers/FeaturedRoomsReducer";
 
 
 
 let mapStateToProps = (state) => {
     return {
-        rooms: state.roomsRed.rooms,
-        isLoading: state.roomsRed.isLoading
+        rooms: state.featuredRoomsRed.rooms,
+        isLoading: state.featuredRoomsRed.isLoading
     }
 }
 
 class FeaturedRooms extends React.Component {
 
     componentDidMount() {
-        this.props.getRoomsToRC()
+        this.props.getFeaturedRooms()
     }
 
     render() {
        let rooms = this.props.rooms.map(room => {
             return <RoomForFR key={room.id} room={room}/>
+
         })
-   //   if(this.props.rooms.rooms)
-        console.log(this.props.rooms)
+
         return (
             <section className="featured-rooms">
                 <Title title="featured rooms"/>
@@ -38,5 +38,4 @@ class FeaturedRooms extends React.Component {
     }
 }
 
-export default compose(connect(mapStateToProps, {getRoomsToRC}))
-(FeaturedRooms);
+export default compose(connect(mapStateToProps, {getFeaturedRooms}))(FeaturedRooms);
