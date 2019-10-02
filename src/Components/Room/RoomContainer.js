@@ -1,40 +1,10 @@
 import React from 'react'
-import {RoomFilter} from "./RoomFilter";
 import {RoomList} from "./RoomList";
 import {Loading} from "../Loading/Loading";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {getRoomsToRC} from "../../Reducers/FeaturedRoomsReducer";
-
-// let mapStateToProps = (state) => {
-//     return {
-//         rooms: state.featuredRoomsReducer.rooms,
-//         isLoading: state.featuredRoomsReducer.isLoading
-//     }
-// }
-//
-// class FeaturedRooms extends React.Component {
-//     componentDidMount() {
-//         this.props.getRoomsToRC()
-//     }
-//
-//     render() {
-//         let rooms = this.props.rooms.map(room => {
-//             return <RoomForFR key={room.id} room={room}/>
-//         })
-//         return (
-//             <section className="featured-rooms">
-//                 <Title title="featured rooms"/>
-//                 <div className="featured-rooms-center">
-//                     {this.props.isLoading ? <Loading/> : rooms}
-//                 </div>
-//             </section>
-//         )
-//     }
-// }
-//
-// export default compose(connect(mapStateToProps, {getRoomsToRC}))
-// (FeaturedRooms);
+import RoomFilterFormContainer from "./RoomFilterFormContainer";
 
 let mapStateToProps = (state) => {
     return {
@@ -53,7 +23,7 @@ class RoomContainer extends React.Component {
 
         return (
             <>
-                <RoomFilter rooms={this.props.rooms}/>
+                <RoomFilterFormContainer />
                 <div>
                     {this.props.isLoading ? <Loading/> : <RoomList rooms={this.props.rooms}/>}
                 </div>

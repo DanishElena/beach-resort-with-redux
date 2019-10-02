@@ -23,7 +23,7 @@ const singleRoomsReducer = (state = initialState, action) => {
 
 export const getRoomsToSR = (slug) => {
     return async (dispatch) => {
-      //  dispatch(roomIsLoading(true));
+        //dispatch(roomIsLoading(true));
         let data = await roomsAPI.getSingleRoom(slug)
        // dispatch(setRooms(data));
         dispatch(setSingleRooms(data));

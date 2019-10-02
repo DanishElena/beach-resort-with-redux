@@ -7,7 +7,6 @@ import StyledBackground from "../Background/StyledBackground";
 
 export const SingleRoom = (props) => {
 
-console.log(props)
     if (!props.rooms) {
         return <div className="error">
             <h3>No such room</h3>
