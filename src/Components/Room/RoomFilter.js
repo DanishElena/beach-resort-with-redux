@@ -16,24 +16,24 @@ console.log(props)
     )
 }
 
-// const getUnique = (items, value) => {
-//     return [...new Set(items.map(item => item[value]))]
-// }
+const getUnique = (items, value) => {
+    return [...new Set(items.map(item => item[value]))]
+}
 
 const RoomFilterForm = (props) => {
 
-    // let types = getUnique(props.rooms, 'types')
-    //
-    //
-    // types = ['all', ...types];
-    // types = types.map((item, index) => {
-    //         return <option value={item} key={index}>{item}</option>
-    //     }
-    // )
-    // let people =  getUnique(props.rooms, 'capacity')
-    // people =  people.map((item, index) => {
-    //     return <option key={index} value={item}>{item}</option>
-    // })
+    let types = getUnique(props.rooms, 'types')
+
+
+    types = ['all', ...types];
+    types = types.map((item, index) => {
+            return <option value={item} key={index}>{item}</option>
+        }
+    )
+    let people =  getUnique(props.rooms, 'capacity')
+    people =  people.map((item, index) => {
+        return <option key={index} value={item}>{item}</option>
+    })
 
     let maxPrice = Math.max(props.rooms.map(item => item.price))
     let maxSize = Math.max(props.rooms.map(item => item.size))
@@ -43,14 +43,14 @@ const RoomFilterForm = (props) => {
     return (
         <section className="filter-container">
             <Title title="search rooms"/>
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={props.handleSubmit} className="filter-form">
 
             {/*form for room type*/}
             <div className="form-group">
                 <label htmlFor="types">room type</label>
                 <Field name="types" component="select" className="form-control"
                        value={props.rooms.types}>
-              {/*  {types}*/}
+                {types}
                 </Field>
             </div>
 
@@ -59,7 +59,7 @@ const RoomFilterForm = (props) => {
                 <label htmlFor="capacity">Guests</label>
                 <Field name="capacity" component="select" className="form-control"
                        value={props.rooms.capacity}>
-           {/*     {people}*/}
+                {people}
                 </Field>
 
             </div>
@@ -83,24 +83,19 @@ const RoomFilterForm = (props) => {
                 </div>
             </div>
 
-            {/*form for breakfast*/}
+            {/*form for breakfast and pets*/}
             <div className="form-group">
                 <div className="single-extra">
                     <Field name="breakfast" component="input" type="checkbox"
                            checked={props.rooms.breakfast} />
                            <label htmlFor="breakfast">breakfast</label>
                 </div>
-            </div>
-
-            {/*form for pets*/}
-            <div className="form-group">
                 <div className="single-extra">
                     <Field name="pets" component="input" type="checkbox"
                            checked={props.rooms.pets} />
                     <label htmlFor="pets">pets</label>
                 </div>
             </div>
-
         </form>
         </section>
     )
