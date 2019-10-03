@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import FormForRoomFilter from "./RoomFilter";
-import {filterRooms} from "../../Reducers/RoomFilterFormReducer";
+import {filterRooms, getRoomsToRFilterC} from "../../Reducers/RoomFilterFormReducer";
 
 
 let mapStateToProps = (state) => {
@@ -22,6 +22,9 @@ let mapStateToProps = (state) => {
 }
 
 class RoomFilterFormContainer extends React.Component {
+    componentDidMount() {
+        this.props.getRoomsToRFilterC()
+    }
 
     render() {
         return <>
@@ -38,10 +41,11 @@ class RoomFilterFormContainer extends React.Component {
                                breakfast={this.props.breakfast}
                                pets={this.props.pets}
                                filterRooms={this.props.filterRooms}
+                               getRoomsToRFilterC = {this.props.filterRooms}
             />
         </>
     }
 
 }
 
-export default compose(connect(mapStateToProps, { filterRooms }))(RoomFilterFormContainer);
+export default compose(connect(mapStateToProps, { getRoomsToRFilterC, filterRooms }))(RoomFilterFormContainer);

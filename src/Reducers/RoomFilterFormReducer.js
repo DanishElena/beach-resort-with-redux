@@ -1,4 +1,5 @@
 import {roomsAPI} from "../api";
+import {roomIsLoading, setRooms} from "./FeaturedRoomsReducer";
 
 
 const FILTER_BY_TYPE = 'FILTER_BY_TYPE';
@@ -62,11 +63,17 @@ const forFormReducer = (state = initialState, action) => {
     }
 }
 
-
-export const filterRooms = (types, capacity, price, size, breakfast, pets) => {
+export const getRoomsToRFilterC = () => {
     return async (dispatch) => {
-        let rooms = await roomsAPI.getRooms()
-        dispatch(setRoomsForFilter(rooms));
+        //dispatch(roomIsLoading(true));
+        let data = await roomsAPI.getRooms()
+        dispatch(setRoomsForFilter(data));
+      //  dispatch(roomIsLoading(false));
+    }
+}
+
+export const filterRooms = (rooms,types, capacity, price, size, breakfast, pets) => {
+    return async (dispatch) => {
         dispatch(filterByType(rooms, types));
         dispatch(filterByCapacity(rooms, capacity))
         dispatch(filterByPrice(rooms, price))

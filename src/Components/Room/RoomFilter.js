@@ -11,28 +11,29 @@ console.log(props)
 
     return (
         <div>
-            <RoomFilterReduxForm onSubmit={onSubmit}/>
+            <RoomFilterReduxForm onSubmit={onSubmit} rooms={props.rooms}/>
         </div>
     )
 }
 
-const getUnique = (items, value) => {
-    return [...new Set(items.map(item => item[value]))]
-}
+// const getUnique = (items, value) => {
+//     return [...new Set(items.map(item => item[value]))]
+// }
 
 const RoomFilterForm = (props) => {
-    let types = getUnique(props.rooms, 'types')
 
-
-    types = ['all', ...types];
-    types = types.map((item, index) => {
-            return <option value={item} key={index}>{item}</option>
-        }
-    )
-    let people =  getUnique(props.rooms, 'capacity')
-    people =  people.map((item, index) => {
-        return <option key={index} value={item}>{item}</option>
-    })
+    // let types = getUnique(props.rooms, 'types')
+    //
+    //
+    // types = ['all', ...types];
+    // types = types.map((item, index) => {
+    //         return <option value={item} key={index}>{item}</option>
+    //     }
+    // )
+    // let people =  getUnique(props.rooms, 'capacity')
+    // people =  people.map((item, index) => {
+    //     return <option key={index} value={item}>{item}</option>
+    // })
 
     let maxPrice = Math.max(props.rooms.map(item => item.price))
     let maxSize = Math.max(props.rooms.map(item => item.size))
@@ -49,7 +50,7 @@ const RoomFilterForm = (props) => {
                 <label htmlFor="types">room type</label>
                 <Field name="types" component="select" className="form-control"
                        value={props.rooms.types}>
-                {types}
+              {/*  {types}*/}
                 </Field>
             </div>
 
@@ -58,7 +59,7 @@ const RoomFilterForm = (props) => {
                 <label htmlFor="capacity">Guests</label>
                 <Field name="capacity" component="select" className="form-control"
                        value={props.rooms.capacity}>
-                {people}
+           {/*     {people}*/}
                 </Field>
 
             </div>
