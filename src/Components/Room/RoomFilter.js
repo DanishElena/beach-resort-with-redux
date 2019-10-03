@@ -44,7 +44,7 @@ const RoomFilterForm = (props) => {
             <Title title="search rooms"/>
         <form onSubmit={props.handleSubmit}>
 
-            /*form for room type*/
+            {/*form for room type*/}
             <div className="form-group">
                 <label htmlFor="types">room type</label>
                 <Field name="types" component="select" className="form-control"
@@ -53,7 +53,7 @@ const RoomFilterForm = (props) => {
                 </Field>
             </div>
 
-            /*form for capacity*/
+            {/*form for capacity*/}
             <div className="form-group">
                 <label htmlFor="capacity">Guests</label>
                 <Field name="capacity" component="select" className="form-control"
@@ -63,7 +63,7 @@ const RoomFilterForm = (props) => {
 
             </div>
 
-            /*form for price*/
+            {/*form for price*/}
             <div className="form-group">
                 <label htmlFor="price">room price ${props.rooms.price}</label>
                 <Field name="price" component="input" type="range" className="form-control"
@@ -71,7 +71,7 @@ const RoomFilterForm = (props) => {
                        max={maxPrice}/>
             </div>
 
-            /*form for size*/
+            {/*form for size*/}
             <div className="form-group">
                 <label htmlFor="minsize">room size</label>
                 <div className="size-inputs">
@@ -82,7 +82,7 @@ const RoomFilterForm = (props) => {
                 </div>
             </div>
 
-            /*form for breakfast*/
+            {/*form for breakfast*/}
             <div className="form-group">
                 <div className="single-extra">
                     <Field name="breakfast" component="input" type="checkbox"
@@ -91,7 +91,7 @@ const RoomFilterForm = (props) => {
                 </div>
             </div>
 
-            /*form for pets*/
+            {/*form for pets*/}
             <div className="form-group">
                 <div className="single-extra">
                     <Field name="pets" component="input" type="checkbox"

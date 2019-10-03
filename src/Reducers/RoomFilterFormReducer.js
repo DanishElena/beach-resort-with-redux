@@ -1,5 +1,5 @@
 import {roomsAPI} from "../api";
-import {setRooms} from "./FeaturedRoomsReducer";
+
 
 const FILTER_BY_TYPE = 'FILTER_BY_TYPE';
 const FILTER_BY_CAPACITY = 'FILTER_BY_CAPACITY';
@@ -7,7 +7,7 @@ const FILTER_BY_PRICE = 'FILTER_BY_PRICE';
 const FILTER_BY_SIZE = 'FILTER_BY_SIZE';
 const FILTER_BY_BREAKFAST = 'FILTER_BY_BREAKFAST';
 const FILTER_BY_PETS = 'FILTER_BY_PETS';
-
+const SET_ROOMS_FOR_FILTER = "SET_ROOMS_FOR_FILTER";
 
 let initialState = {
     rooms: [],
@@ -27,7 +27,7 @@ const forFormReducer = (state = initialState, action) => {
     switch (action.type) {
         case FILTER_BY_TYPE:
             return { ...state,
-                rooms: state.rooms.filter(room => room.types === action.types)
+                rooms: action.rooms.filter(room => room.types === action.rooms.types)
             }
         case FILTER_BY_CAPACITY:
             return { ...state,
@@ -51,6 +51,11 @@ const forFormReducer = (state = initialState, action) => {
             return { ...state,
                 rooms: state.rooms.filter(room => room.pets === true  )
             }
+        case SET_ROOMS_FOR_FILTER: {
+            return  { ...state,
+                rooms: action.rooms
+            }
+        }
         default:
             return state;
 
@@ -58,10 +63,10 @@ const forFormReducer = (state = initialState, action) => {
 }
 
 
-export const filterRooms = (rooms, types, capacity, price, size, breakfast, pets) => {
+export const filterRooms = (types, capacity, price, size, breakfast, pets) => {
     return async (dispatch) => {
         let rooms = await roomsAPI.getRooms()
-        dispatch(setRooms(rooms));
+        dispatch(setRoomsForFilter(rooms));
         dispatch(filterByType(rooms, types));
         dispatch(filterByCapacity(rooms, capacity))
         dispatch(filterByPrice(rooms, price))
@@ -77,6 +82,7 @@ export const filterByPrice = (rooms, price) => ({type: FILTER_BY_PRICE, rooms, p
 export const filterBySize = (rooms, size) => ({type: FILTER_BY_SIZE, rooms, size});
 export const filterByBreakfast = (rooms, breakfast) => ({type: FILTER_BY_BREAKFAST, rooms, breakfast});
 export const filterByPets = (rooms, pets) => ({type: FILTER_BY_TYPE, rooms, pets});
+export const setRoomsForFilter = (rooms) => ({type: SET_ROOMS_FOR_FILTER , rooms});
 
 export default forFormReducer;
 

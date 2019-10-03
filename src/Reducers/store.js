@@ -1,5 +1,5 @@
 import {reducer as formReducer} from "redux-form";
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunkMiddleware from "redux-thunk";
 import featuredRoomsReducer from "./FeaturedRoomsReducer";
 import singleRoomsReducer from "./SingleRoomsReducer";
@@ -14,8 +14,9 @@ let reducers = combineReducers({
     form: formReducer
 });
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers,  composeEnhancers(applyMiddleware(thunkMiddleware)));
 
-const store = createStore(reducers, (applyMiddleware(thunkMiddleware)))
 window.__store__ = store;
 
 

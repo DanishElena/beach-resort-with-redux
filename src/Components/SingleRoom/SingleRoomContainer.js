@@ -5,8 +5,6 @@ import {compose} from "redux";
 import {SingleRoom} from "./SingleRoom";
 import {withRouter} from "react-router-dom";
 import {getRoomsToSR} from "../../Reducers/SingleRoomsReducer";
-import {getFeaturedRooms} from "../../Reducers/FeaturedRoomsReducer";
-
 
 let mapStateToProps = (state) => {
     return {
