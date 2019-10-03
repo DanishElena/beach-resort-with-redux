@@ -3,7 +3,7 @@ import {Title} from "../Title/Title";
 import {Field, reduxForm} from 'redux-form'
 
 const FormForRoomFilter = (props) => {
-console.log(props)
+// console.log(props)
     let onSubmit = (value) => {
 
         props.filterRooms(value.types, value.capacity, value.price, value.size, value.breakfast, value.pets)
@@ -11,17 +11,20 @@ console.log(props)
 
     return (
         <div>
-            <RoomFilterReduxForm onSubmit={onSubmit} rooms={props.rooms}/>
+            <RoomFilterReduxForm onSubmit={onSubmit} rooms={props.rooms} types={props.types} capacity={props.capacity}
+                                 price={props.price} size={props.size} breakfast={props.breakfast} pets={props.pets}
+                                 minSize={props.minSize} maxSize={props.maxSize}/>
         </div>
     )
 }
+
 
 const getUnique = (items, value) => {
     return [...new Set(items.map(item => item[value]))]
 }
 
 const RoomFilterForm = (props) => {
-
+    console.log(props)
     let types = getUnique(props.rooms, 'types')
 
 
@@ -30,81 +33,82 @@ const RoomFilterForm = (props) => {
             return <option value={item} key={index}>{item}</option>
         }
     )
-    let people =  getUnique(props.rooms, 'capacity')
-    people =  people.map((item, index) => {
+    let people = getUnique(props.rooms, 'capacity')
+    people = people.map((item, index) => {
         return <option key={index} value={item}>{item}</option>
     })
 
     let maxPrice = Math.max(props.rooms.map(item => item.price))
-    let maxSize = Math.max(props.rooms.map(item => item.size))
-    let minPrice = props.rooms.price;
-    let minSize = props.rooms.size;
+    let minPrice = props.price;
+
 
     return (
         <section className="filter-container">
             <Title title="search rooms"/>
-        <form onSubmit={props.handleSubmit} className="filter-form">
+            <form onSubmit={props.handleSubmit} className="filter-form">
 
-            {/*form for room type*/}
-            <div className="form-group">
-                <label htmlFor="types">room type</label>
-                <Field name="types" component="select" className="form-control"
-                       value={props.rooms.types}>
-                {types}
-                </Field>
-            </div>
-
-            {/*form for capacity*/}
-            <div className="form-group">
-                <label htmlFor="capacity">Guests</label>
-                <Field name="capacity" component="select" className="form-control"
-                       value={props.rooms.capacity}>
-                {people}
-                </Field>
-
-            </div>
-
-            {/*form for price*/}
-            <div className="form-group">
-                <label htmlFor="price">room price ${props.rooms.price}</label>
-                <Field name="price" component="input" type="range" className="form-control"
-                       value={props.rooms.price} min={minPrice}
-                       max={maxPrice}/>
-            </div>
-
-            {/*form for size*/}
-            <div className="form-group">
-                <label htmlFor="minsize">room size</label>
-                <div className="size-inputs">
-                    <Field name="size" component="input" type="number" className="size-input"
-                           value={minSize} />
-                    <Field name="maxsize" component="input" type="number" className="size-input"
-                           value={maxSize} />
+                {/*form for room type*/}
+                <div className="form-group">
+                    <label htmlFor="types">room type</label>
+                    <Field name="types" component="select" className="form-control"
+                           value={props.types}>
+                        {types}
+                    </Field>
                 </div>
-            </div>
 
-            {/*form for breakfast and pets*/}
-            <div className="form-group">
-                <div className="single-extra">
-                    <Field name="breakfast" component="input" type="checkbox"
-                           checked={props.rooms.breakfast} />
-                           <label htmlFor="breakfast">breakfast</label>
+                {/*form for capacity*/}
+                <div className="form-group">
+                    <label htmlFor="capacity">Guests</label>
+                    <Field name="capacity" component="select" className="form-control"
+                           value={props.capacity}>
+                        {people}
+                    </Field>
+
                 </div>
-                <div className="single-extra">
-                    <Field name="pets" component="input" type="checkbox"
-                           checked={props.rooms.pets} />
-                    <label htmlFor="pets">pets</label>
+
+                {/*form for price*/}
+                <div className="form-group">
+                    <label htmlFor="price">room price ${props.price}</label>
+                    <Field name="price" component="input" type="range" className="form-control"
+                           value={props.price} min={minPrice}
+                           max={maxPrice}/>
                 </div>
-            </div>
-        </form>
+
+                {/*form for size*/}
+                <div className="form-group">
+                    <label htmlFor="minsize">room size</label>
+                    <div className="size-inputs">
+                        <Field name="size" component="input" type="number" className="size-input"
+                               value={props.minSize}/>
+                        <Field name="maxsize" component="input" type="number" className="size-input"
+                               value={props.maxSize}/>
+                    </div>
+                </div>
+
+                {/*form for breakfast and pets*/}
+                <div className="form-group">
+                    <div className="single-extra">
+                        <Field name="breakfast" component="input" type="checkbox"
+                        />
+                        <label htmlFor="breakfast">breakfast</label>
+                    </div>
+                    <div className="single-extra">
+                        <Field name="pets" component="input" type="checkbox"
+                        />
+                        <label htmlFor="pets">pets</label>
+                    </div>
+                </div>
+            </form>
         </section>
     )
 }
 
-const RoomFilterReduxForm = reduxForm({form: 'filterRooms'})(RoomFilterForm)
+const RoomFilterReduxForm = reduxForm({
+    form: 'filterRooms',
+    enableReinitialize: true
+})(RoomFilterForm)
 
 export default FormForRoomFilter;
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////

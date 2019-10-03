@@ -15,8 +15,6 @@ let initialState = {
     types: "",
     capacity: 1,
     price: 0,
-    minPrice: 0,
-    maxPrice: 0,
     minSize: 0,
     maxSize: 0,
     size: 0,
@@ -28,7 +26,7 @@ const forFormReducer = (state = initialState, action) => {
     switch (action.type) {
         case FILTER_BY_TYPE:
             return { ...state,
-                rooms: action.rooms.filter(room => room.types === action.rooms.types)
+                rooms: state.rooms.filter(room => room.types === action.types)
             }
         case FILTER_BY_CAPACITY:
             return { ...state,
@@ -39,10 +37,10 @@ const forFormReducer = (state = initialState, action) => {
                 rooms: state.rooms.filter(room => room.price <= action.price)
             }
         case FILTER_BY_SIZE:
-            let maxSize = Math.max(state.rooms.map(item => item.size))
+            let maxSize = Math.max(...state.rooms.map(item => item.size))
             let minSize = state.rooms.size;
             return { ...state,
-                rooms: state.rooms.filter(room => room.action.size >= minSize && room.action.size <= maxSize)
+                rooms: state.rooms.filter(room => room.size >= minSize && room.size <= maxSize)
             }
         case FILTER_BY_BREAKFAST :
             return { ...state,
